@@ -1,0 +1,78 @@
+ALGORITHM count_common_hash
+
+VAR
+
+s1 : ARRAY_OF INTEGER[];
+s2 : ARRAY_OF INTEGER[];
+htab : HASH_TABLE<INTEGER,INTEGER>;
+n1, n2, i, j, count, x, y, sum : INTEGER;
+v : BOOLEAN;
+
+BEGIN
+
+Write("Enter the size of set 1 :");
+Read(n1);
+i:=0;
+REPEAT
+    Read(x);
+    IF (i>0) THEN
+        FOR j FROM 0 TO i  DO
+            IF (s1[i]=s1[j]) THEN
+                Write("Please enter another number.")
+            ELSE
+                s1[i]:=x;
+                i:=i+1;
+            END_IF
+        END_FOR
+    END_IF
+UNTIL (i>=n1)
+
+Write("Enter the size of set 2 :");
+Read(n2);
+i:=0;
+REPEAT
+    Read(y);
+    IF (i>0) THEN
+        FOR j FROM 0 TO i  DO
+            IF (s2[i]=s2[j]) THEN
+                Write("Please enter another number.")
+            ELSE
+                s2[i]:=y;
+                i:=i+1;
+            END_IF
+        END_FOR
+    END_IF 
+UNTIL (i>=n2)
+
+FOR i FROM 0 TO n1-1  DO
+    FOR j FROM 0 TO n2-1  DO
+        IF (s1[i]=s2[j]) THEN
+            htab.insert(s1[i],1);
+        ELSE
+            count:=htab.get(s1[i]);
+            htab.insert(s1[i],count+1);
+        END_IF
+    END_FOR
+END_FOR
+
+sum:=0; v:=TRUE;
+FOR i FROM 0 TO n1-1  DO
+    IF (htab.get(s1[i])=1) THEN
+        sum:=sum+s1[i];
+        v:=FALSE;
+    END_IF
+END_FOR
+
+IF (v=TRUE) THEN
+    Write("There are no common elements.");
+ELSE
+    Write("The sum is : ", sum);
+    Write("Common elements are : ");
+    FOR i FROM 0 TO n1-1  DO
+        IF (htab.get(s1[i])=1) THEN
+        Write(s1[i]," ");
+        END_IF
+    END_FOR
+END_IF
+
+END

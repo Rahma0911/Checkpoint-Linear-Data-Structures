@@ -1,0 +1,66 @@
+ALGORITHM count_common_array
+
+VAR
+
+s1 : ARRAY_OF INTEGER[];
+s2 : ARRAY_OF INTEGER[];
+tab : ARRAY_OF INTEGER[];
+n1, n2, i, j, k, x, y, sum : INTEGER;
+
+BEGIN
+
+Write("Enter the size of set 1 :");
+Read(n1);
+i:=0;
+REPEAT
+    Read(x);
+    IF (i>0) THEN
+        FOR j FROM 0 TO i  DO
+            IF (s1[i]=s1[j]) THEN
+                Write("Please enter another number.")
+            ELSE
+                s1[i]:=x;
+                i:=i+1;
+            END_IF
+        END_FOR
+    END_IF
+UNTIL (i>=n1)
+
+Write("Enter the size of set 2 :");
+Read(n2);
+i:=0;
+REPEAT
+    Read(y);
+    IF (i>0) THEN
+        FOR j FROM 0 TO i  DO
+            IF (s2[i]=s2[j]) THEN
+                Write("Please enter another number.")
+            ELSE
+                s2[i]:=y;
+                i:=i+1;
+            END_IF
+        END_FOR
+    END_IF 
+UNTIL (i>=n2)
+
+k:=-1; sum:=0;
+FOR i FROM 0 TO n1-1  DO
+    FOR j FROM 0 TO n2-1  DO
+        IF (s1[i]=s2[j]) THEN
+            sum:=sum+s1[i];
+            k:=k+1;
+            tab[k]:=s1[i];
+        END_IF
+    END_FOR
+END_FOR
+
+IF (tab.length>0) THEN
+    Write("The sum is : ", sum);
+    Write("Common elements are : ");
+    FOR i FROM 0 TO k  DO
+    Write(tab[i]," ");
+    END_FOR
+ELSE
+    Write("There are no common elements.");
+END_IF
+END
